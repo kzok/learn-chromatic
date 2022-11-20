@@ -23,6 +23,7 @@
   },
   "scripts": {
     "type-check": "tsc --noEmit",
+    "fmt": "prettier --write .",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   }
