@@ -25,3 +25,12 @@ jobs:
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           zip: true
+      - uses: marocchino/sticky-pull-request-comment@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          header: chromatic-notification
+          recreate: true
+          message: |
+            ## :loudspeaker: Chromatic has been deployed! (${{ github.event.pull_request.head.sha }})
+            :books: Storybook: ${{ steps.chromatic.outputs.storybookUrl }}
+            :gear: Build: ${{ steps.chromatic.outputs.buildUrl }}
