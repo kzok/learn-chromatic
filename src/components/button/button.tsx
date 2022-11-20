@@ -1,5 +1,5 @@
-import React, {forwardRef} from "react";
-import {css} from "@emotion/react";
+import React, { forwardRef } from "react";
+import { css } from "@emotion/react";
 
 const styles = {
   button: css`
@@ -23,20 +23,15 @@ const styles = {
   `,
 };
 
-export type ButtonProps = Readonly<
-  React.ComponentPropsWithoutRef<"button">
->;
+export type ButtonProps = Readonly<React.ComponentPropsWithoutRef<"button">>;
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
-  const {children, ...others} = props;
-  return (
-    <button
-      {...others}
-      type="button"
-      ref={ref}
-      css={styles.button}
-    >
-      {children}
-    </button>
-  );
-});
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  (props, ref) => {
+    const { children, ...others } = props;
+    return (
+      <button {...others} type="button" ref={ref} css={styles.button}>
+        {children}
+      </button>
+    );
+  }
+);
