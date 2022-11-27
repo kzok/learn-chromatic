@@ -3,7 +3,7 @@
 
 name: Chromatic
 
-on: [pull_request]
+on: push
 
 env:
   node-version: "16.17.1"
@@ -25,12 +25,20 @@ jobs:
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           zip: true
+      # find PR number and assign it to "steps.find-pr.outputs.number"
+      - run: echo "number=$(gh pr view --json number -q .number || echo "")" >> $GITHUB_OUTPUT
+        id: find-pr
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # comment to PR if PR exists
       - uses: marocchino/sticky-pull-request-comment@v1
+        if: success() && steps.find-pr.outputs.number
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           header: chromatic-notification
+          number: ${{ steps.find-pr.outputs.number }}
           recreate: true
           message: |
-            ## :loudspeaker: Chromatic has been deployed! (${{ github.event.pull_request.head.sha }})
+            ## :loudspeaker: Chromatic has been deployed! (${{ github.sha }})
             :books: Storybook: ${{ steps.chromatic.outputs.storybookUrl }}
             :gear: Build: ${{ steps.chromatic.outputs.buildUrl }}
