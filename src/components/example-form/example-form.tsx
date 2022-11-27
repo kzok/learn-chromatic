@@ -15,6 +15,9 @@ const styles = {
     flex-flow: row nowrap;
     gap: 8px;
   `,
+  input: css`
+    width: 100px;
+  `,
 } as const;
 
 export const ExampleForm: React.FC = () => {
@@ -22,7 +25,7 @@ export const ExampleForm: React.FC = () => {
     <div css={styles.container}>
       <p>Chromatic で日本語を含むコンポーネントを描画できるかどうかのテスト</p>
       <div css={styles.row}>
-        <Input placeholder="受付番号" defaultValue="" />
+        <Input placeholder="受付番号" defaultValue="" css={styles.input} />
         <Button>問い合わせ</Button>
       </div>
     </div>
